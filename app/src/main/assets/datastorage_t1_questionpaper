@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+    <date> 26 January 2016</date>
+    <question>
+        <tag>mcq</tag>
+        <text>Which of the following system calls results in the sending of SYN packets?
+        </text>
+        <optiona>socket</optiona>
+        <optionb>bind</optionb>
+        <optionc>listen</optionc>
+        <optiond>connect</optiond>
+        <marks> 1 </marks>
+        <answer>C</answer>
+    </question>
+    <question>
+        <tag>draw</tag>
+        <text>Draw the IP datagram header format</text>
+        <marks> 1 </marks>
+    </question>
+    <question>
+        <tag>mcq</tag>
+        <text>The transport layer protocols used for real time multimedia, file transfer, DNS and email, respectively are:</text>
+        <optiona>TCP, UDP, UDP and TCP</optiona>
+        <optionb>UDP, TCP, TCP and UDP</optionb>
+        <optionc>UDP, TCP, UDP and TCP</optionc>
+        <optiond>TCP, UDP, TCP and UDP</optiond>
+        <marks> 1 </marks>
+        <answer>D</answer>
+    </question>
+    <question>
+        <tag>explain_text</tag>
+        <text>Explain why UDP is called connectionless.</text>
+        <marks> 1 </marks>
+        <answer/>
+    </question>
+    <question>
+        <tag>draw</tag>
+        <text>Depict the TCP header segment with all the fields</text>
+        <marks> 1 </marks>
+    </question>
+    <question>
+        <tag>mcq</tag>
+        <text>Consider an instance of TCP’s Additive Increase Multiplicative Decrease (AIMD) algorithm where the window size at the start of the slow start phase is 2 MSS and the threshold at the start of the first transmission is 8 MSS. Assume that a timeout occurs during the fifth transmission. Find the congestion window size at the end of the tenth transmission.</text>
+        <optiona>8 MSS</optiona>
+        <optionb>14 MSS</optionb>
+        <optionc>7 MSS</optionc>
+        <optiond>12 MSS</optiond>
+        <marks> 1 </marks>
+        <answer>A</answer>
+    </question>
+    <question>
+        <tag>draw</tag>
+        <text>Show the FSM state diagram for TCP on the client side.</text>
+        <marks> 1 </marks>
+    </question>
+    <question>
+        <tag>draw</tag>
+        <text>Depict the 3-way handshake in TCP connection.</text>
+        <marks> 1 </marks>
+    </question>
+    <question>
+        <tag>explain_text</tag>
+        <text>What are some of the protocols available at the Network Layer? Elaborate any two.</text>
+        <marks> 1 </marks>
+        <answer>fhyrghfghcfh</answer>
+    </question>
+    <question>
+        <tag>mcq</tag>
+        <text>In the slow start phase of the TCP congestion control algorithm, the size of the congestion window:</text>
+        <optiona>does not increase</optiona>
+        <optionb>increases linearly</optionb>
+        <optionc>increases quadratically</optionc>
+        <optiond>increases exponentially</optiond>
+        <marks> 1 </marks>
+        <answer>A</answer>
+    </question>
+    <question>
+        <tag>label</tag>
+        <text>Label the given figure in 4 marked places.</text>
+        <label>4</label>
+    </question>
+</resources>

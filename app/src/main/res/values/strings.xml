@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TeacherApp</string>
+
+    <string name="prompt">Choose Tag</string>
+
+    <string-array name="tag">
+        <item>MCQ</item>
+        <item>Explain_Text</item>
+        <item>Draw</item>
+        <item>Label</item>
+    </string-array>
+
+    <string-array name="tags">
+        <item>Choose Question Tag</item>
+        <item>MCQ</item>
+        <item>Explain_Text</item>
+        <item>Draw</item>
+        <item>Label</item>
+    </string-array>
+
+    <string-array name="questions_list">
+        <item>Q1</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q4</item>
+        <item>Q5</item>
+        <item>Q6</item>
+        <item>Q7</item>
+        <item>Q8</item>
+        <item>Q9</item>
+        <item>Q10</item>
+        <item>Q11</item>
+        <item>Q12</item>
+    </string-array>
+</resources>

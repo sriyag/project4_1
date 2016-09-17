@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+                android:id="@+id/root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/etLabelQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_marginTop="15dp"
+        android:hint="Enter question"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Image"
+        android:id="@+id/btnChooseImg"
+        android:layout_below="@+id/etLabelQuestion"
+        android:layout_alignRight="@+id/etLabelQuestion"
+        android:layout_alignEnd="@+id/etLabelQuestion"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="New image chosen - file name.png"
+        android:id="@+id/tvImgFile"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/btnChooseImg"
+        android:layout_alignStart="@+id/btnChooseImg"
+        android:layout_alignLeft="@+id/btnChooseImg"
+        android:layout_alignRight="@+id/btnChooseImg"
+        android:layout_alignEnd="@+id/btnChooseImg"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:id="@+id/ivLabelImage"
+        android:layout_below="@+id/etLabelQuestion"
+        android:layout_marginTop="15dp"
+        android:scaleType="matrix"
+        android:layout_alignLeft="@+id/etLabelQuestion"
+        android:layout_alignStart="@+id/etLabelQuestion"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:id="@+id/btnPlus"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="25sp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:id="@+id/btnMinus"
+        android:layout_alignTop="@+id/btnPlus"
+        android:layout_alignBottom="@+id/btnPlus"
+        android:layout_toRightOf="@+id/btnPlus"
+        android:layout_toEndOf="@+id/btnPlus"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="25sp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Question"
+        android:id="@+id/btnSaveQuestion_Label"
+        android:layout_alignBottom="@+id/btnMinus"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btnChooseImg"
+        />
+
+        </RelativeLayout>
+

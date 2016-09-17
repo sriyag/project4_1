@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llListViewAndBtn"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/questionNumberList"
+        android:layout_width="60dp"
+        android:layout_height="250dp"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/selected_item_color"
+        />
+
+        <Button
+            android:id="@+id/btnAddQs"
+            android:text="Add"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            />
+
+        <Button
+            android:id="@+id/btnDelQs"
+            android:text="Del"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlayTitle"
+        android:layout_toRightOf="@+id/llListViewAndBtn"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/titleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Course - Exam"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvQsNum"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:layout_marginLeft="15dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSaveStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Unsaved"
+            android:layout_marginLeft="5dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/prev_question"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/button_prev_color"
+            />
+
+        <Button
+            android:id="@+id/next_question"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/button_next_color"
+            />
+
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Type:"
+            android:layout_marginLeft="5dp"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:id="@+id/questionTag"
+            android:prompt="@string/prompt"
+            android:layout_gravity="right"
+            android:entries="@array/tag"
+            android:spinnerMode="dropdown"/>
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/llListViewAndBtn"
+        android:layout_below="@+id/linlayTitle">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                    <!--timer-->
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/scrollView"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/DeleteQs"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="40dp"
+            android:textSize="15sp"
+            android:text="Delete"
+            />
+
+        <Button
+            android:id="@+id/ModifyQs"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="40dp"
+            android:textSize="15sp"
+            android:text="Modify"
+            />
+
+        <Button
+            android:id="@+id/SaveQs"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="50dp"
+            android:textSize="15sp"
+            android:text="Save"
+            />
+
+
+
+    </LinearLayout>-->
+
+
+
+
+</RelativeLayout>

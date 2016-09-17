@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.example.sriyag.teacherapp"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AddQuestion"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".AddQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".CreateNewQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".EditQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".SelectQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".SeeQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+
+        <activity android:name=".QuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".ViewQuestionPaper"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+        <activity android:name=".Test_Drag_View"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation"
+            />
+
+
+    </application>
+
+</manifest>

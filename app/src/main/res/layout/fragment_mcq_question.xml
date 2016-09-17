@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:id="@+id/rlfragmcq">
+
+    <EditText
+        android:id="@+id/etMCQQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_marginTop="15dp"
+        android:hint="Enter question"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etOption1"
+        android:layout_below="@+id/etMCQQuestion"
+        android:layout_alignLeft="@+id/etMCQQuestion"
+        android:layout_alignStart="@+id/etMCQQuestion"
+        android:layout_marginTop="20dp"
+        android:hint="Enter option 1"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etOption2"
+        android:layout_below="@+id/etOption1"
+        android:layout_alignLeft="@+id/etMCQQuestion"
+        android:hint="Enter option 2"
+        />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etOption3"
+        android:layout_below="@+id/etOption2"
+        android:layout_alignLeft="@+id/etOption2"
+        android:layout_alignStart="@+id/etOption2"
+        android:hint="Enter option 3"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etOption4"
+        android:layout_below="@+id/etOption3"
+        android:layout_alignLeft="@+id/etOption2"
+        android:layout_alignStart="@+id/etOption2"
+        android:hint="Enter option 4"
+        />
+
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Option"
+        android:id="@+id/btnAddOption"
+        android:layout_below="@+id/etOption4"
+        android:layout_toLeftOf="@+id/btnSaveQuestion"
+        />-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Question"
+        android:id="@+id/btnSaveQuestion"
+        android:layout_below="@+id/etOption4"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+
+
+</RelativeLayout>
