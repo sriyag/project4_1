@@ -43,7 +43,6 @@ public class AddQuestionPaper extends Activity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    startActivity(new Intent(AddQuestionPaper.this, QuestionPaper.class));
                 }
             }
         });

@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+
+    ListView lvCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,28 +19,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         //Select subject class
-        Button bDstn = (Button) findViewById(R.id.bDstn);
-        Button bOS = (Button) findViewById(R.id.bOS);
-        Button bNet = (Button) findViewById(R.id.bNetworks);
-
-
-
+        lvCourses = (ListView) findViewById(R.id.lvCourses);
+        lvCourses.setOnItemClickListener(this);
     }
 
-    public void onClick (View v) {
+    public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
 
-        if (v.getId() == R.id.bDstn || v.getId() == R.id.bOS || v.getId() == R.id.bNetworks) {
+        try {
 
-            Button b = (Button) v;
-//            Toast.makeText(getApplicationContext(), b.getText().toString(), Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(this, SelectQuestionPaper.class);
-            intent.putExtra("subject", b.getText().toString());
+            String subject = ((TextView)view).getText().toString();
+            Intent intent = new Intent(MainActivity.this, SelectQuestionPaper.class);
+            intent.putExtra("subject", subject);
             startActivity(intent);
-
-//            startActivity(new Intent(MainActivity.this, Test_Drag_View.class));
-
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "list view: " + e.getMessage(), Toast
+                    .LENGTH_SHORT).show();
         }
+
 
     }
 }

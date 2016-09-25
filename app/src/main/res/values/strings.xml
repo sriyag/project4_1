@@ -18,6 +18,14 @@
         <item>Label</item>
     </string-array>
 
+    <string-array name="courses">
+        <item>DSTN</item>
+        <item>OS</item>
+        <item>Networks</item>
+        <item>Compilers</item>
+
+    </string-array>
+
     <string-array name="questions_list">
         <item>Q1</item>
         <item>Q2</item>

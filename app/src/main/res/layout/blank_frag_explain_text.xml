@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-    android:id="@+id/rlfragmcq">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rlfragmcq">
 
     <EditText
-        android:id="@+id/etDrawQuestion"
+        android:id="@+id/etExplainQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -20,8 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save Question"
-        android:id="@+id/btnSaveQuestion_Draw"
-        android:layout_below="@+id/etDrawQuestion"
+        android:id="@+id/btnSaveQuestion_Explain"
+        android:layout_below="@+id/etExplainQuestion"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         />

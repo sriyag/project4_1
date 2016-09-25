@@ -4,13 +4,13 @@
         <item
             android:state_focused="true"
             android:state_pressed="true"
-            android:drawable="@drawable/pressed_prev" />
+            android:drawable="@drawable/prevpressed" />
 
         <item
             android:state_focused="false"
             android:state_pressed="true"
-            android:drawable="@drawable/pressed_prev" />
+            android:drawable="@drawable/prevpressed" />
 
-        <item android:drawable="@drawable/normal_prev" />
+        <item android:drawable="@drawable/prevorig" />
 
 </selector>

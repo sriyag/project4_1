@@ -31,7 +31,7 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * Created by sriyag on 12/09/16.
  */
-public class FragmentDrawQuestion extends Fragment {
+public class BlankFragDraw extends Fragment {
 
     EditText etDrawQs;
     Button btnSaveQuestion_Draw;
@@ -45,10 +45,7 @@ public class FragmentDrawQuestion extends Fragment {
 
         this.setRetainInstance(true);
 
-        View view = inflater.inflate(R.layout.fragment_draw_question, container, false);
-
-        String explainQs = getArguments().getString("drawQuestion") ;
-        String qsNum = getArguments().getString("questionnumber") ;
+        View view = inflater.inflate(R.layout.blank_frag_draw, container, false);
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Unsaved");
@@ -75,7 +72,7 @@ public class FragmentDrawQuestion extends Fragment {
 
                 if (file.exists()) {
                     try {
-                       modifyXMLFile("draw", question);
+                        modifyXMLFile("draw", question);
 
 
                     } catch (Exception e) {
@@ -102,7 +99,7 @@ public class FragmentDrawQuestion extends Fragment {
                     "final_question_paper.xml"; //append course and exam name
                     */
 
-                     String path = Environment.getExternalStorageDirectory() + "/" +
+            String path = Environment.getExternalStorageDirectory() + "/" +
                     "datastorage_t1_questionpaper.xml"; //append course and exam name
 
             File f = new File(path);
@@ -189,7 +186,7 @@ public class FragmentDrawQuestion extends Fragment {
 
                 Toast.makeText(getActivity().getBaseContext(), "if block: tag mcq or explain_text",
                         Toast
-                        .LENGTH_SHORT)
+                                .LENGTH_SHORT)
                         .show();
 
                 /*
@@ -264,16 +261,16 @@ public class FragmentDrawQuestion extends Fragment {
                 }
             }
 
-                // write the content into xml file
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filename));
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filename));
 
-                transformer.transform(source, result);
+            transformer.transform(source, result);
 
-                Toast.makeText(getActivity().getBaseContext(), "Added to question paper", Toast.LENGTH_SHORT)
-                        .show();
+            Toast.makeText(getActivity().getBaseContext(), "Added to question paper", Toast.LENGTH_SHORT)
+                    .show();
 
 
         } catch (Exception e) {

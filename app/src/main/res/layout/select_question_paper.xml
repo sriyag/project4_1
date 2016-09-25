@@ -29,19 +29,21 @@
         android:layout_below="@+id/tvCourseName"/>
 
     <ListView
-        android:layout_width="250dp"
+        android:layout_width="450dp"
         android:layout_height="150dp"
         android:id="@+id/listViewQPs"
         android:background="#dddddd"
         android:layout_marginTop="10dp"
         android:layout_below="@id/textView3"
         android:verticalScrollbarPosition="right"
+        android:choiceMode="singleChoice"
+        android:longClickable="true"
         android:layout_alignLeft="@id/textView3">
 
     </ListView>
 
     <Button
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bAddQP"
         android:text="Add Question Paper"

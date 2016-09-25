@@ -4,13 +4,13 @@
         <item
             android:state_focused="true"
             android:state_pressed="true"
-            android:drawable="@drawable/pressed_next" />
+            android:drawable="@drawable/nextpressed" />
 
         <item
             android:state_focused="false"
             android:state_pressed="true"
-            android:drawable="@drawable/pressed_next" />
+            android:drawable="@drawable/nextpressed" />
 
-        <item android:drawable="@drawable/normal_next" />
+        <item android:drawable="@drawable/nextorig" />
 
 </selector>

@@ -50,7 +50,7 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * Created by sriyag on 14/09/16.
  */
-public class FragmentLabelQuestion extends Fragment implements View.OnClickListener,
+public class BlankFragLabel extends Fragment implements View.OnClickListener,
         View.OnTouchListener, View.OnLongClickListener, View.OnCreateContextMenuListener {
 
     private int _xDelta;
@@ -79,11 +79,8 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_label_question, container, false);
+        View view = inflater.inflate(R.layout.blank_frag_label, container, false);
 
-        labelQs = getArguments().getString("labelQuestion");
-        numberOfLabels = getArguments().getInt("number_of_labels");
-        qsNum = getArguments().getString("questionnumber");
 
         rl = (RelativeLayout) view.findViewById(R.id.root);
         scaleGestureDetector = new ScaleGestureDetector(getActivity(), new ScaleListener());

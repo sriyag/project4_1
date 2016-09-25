@@ -31,10 +31,10 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * Created by sriyag on 12/09/16.
  */
-public class FragmentDrawQuestion extends Fragment {
+public class BlankFragExplainText extends Fragment {
 
-    EditText etDrawQs;
-    Button btnSaveQuestion_Draw;
+    EditText etExplainQs;
+    Button btnSaveQuestion_Explain;
     String question;
     RelativeLayout rlfragmcq;
     TextView tvSaveStatus;
@@ -45,27 +45,25 @@ public class FragmentDrawQuestion extends Fragment {
 
         this.setRetainInstance(true);
 
-        View view = inflater.inflate(R.layout.fragment_draw_question, container, false);
+        View view = inflater.inflate(R.layout.blank_frag_explain_text, container, false);
 
-        String explainQs = getArguments().getString("drawQuestion") ;
-        String qsNum = getArguments().getString("questionnumber") ;
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Unsaved");
 
 
         //initializing all views:
-        etDrawQs = (EditText) view.findViewById(R.id.etDrawQuestion);
-        btnSaveQuestion_Draw = (Button) view.findViewById(R.id.btnSaveQuestion_Draw);
+        etExplainQs = (EditText) view.findViewById(R.id.etExplainQuestion);
+        btnSaveQuestion_Explain = (Button) view.findViewById(R.id.btnSaveQuestion_Explain);
         rlfragmcq = (RelativeLayout) view.findViewById(R.id.rlfragmcq);
 
-        btnSaveQuestion_Draw.setOnClickListener(new View.OnClickListener() {
+        btnSaveQuestion_Explain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //document builder factory: save entire question in different tags in xml file
                 //first retrieve all the text content: question and options
-                question = etDrawQs.getText().toString();
+                question = etExplainQs.getText().toString();
                 tvSaveStatus.setText("Saved");
 
                 //should be name of questionpaper: course_exam_questionpaper.xml
@@ -75,7 +73,7 @@ public class FragmentDrawQuestion extends Fragment {
 
                 if (file.exists()) {
                     try {
-                       modifyXMLFile("draw", question);
+                        modifyXMLFile("explain_text", question);
 
 
                     } catch (Exception e) {
@@ -83,7 +81,7 @@ public class FragmentDrawQuestion extends Fragment {
                     }
                 }
                 else {
-                    insertIntoXMLFile("draw", question);
+                    insertIntoXMLFile("explain_text", question);
                 }
 
             }
@@ -102,7 +100,7 @@ public class FragmentDrawQuestion extends Fragment {
                     "final_question_paper.xml"; //append course and exam name
                     */
 
-                     String path = Environment.getExternalStorageDirectory() + "/" +
+            String path = Environment.getExternalStorageDirectory() + "/" +
                     "datastorage_t1_questionpaper.xml"; //append course and exam name
 
             File f = new File(path);
@@ -130,11 +128,12 @@ public class FragmentDrawQuestion extends Fragment {
             root.appendChild(child1_tag);
             root.appendChild(child2_text);
 
+            d.appendChild(root);
 
-            if(!f.exists())
+            /*if(!f.exists())
             {
                 d.appendChild(root);
-            }
+            }*/
 
             TransformerFactory tfactory=TransformerFactory.newInstance();
             Transformer t=tfactory.newTransformer();
@@ -184,11 +183,9 @@ public class FragmentDrawQuestion extends Fragment {
                     .LENGTH_SHORT)
                     .show();*/ //prints tag, not mcq
 
-            if (root.getFirstChild().getTextContent().equals("mcq") || root.getFirstChild()
-                    .getTextContent().equals("explain_text")) {
+            if (root.getFirstChild().getTextContent().equals("mcq")) {
 
-                Toast.makeText(getActivity().getBaseContext(), "if block: tag mcq or explain_text",
-                        Toast
+                Toast.makeText(getActivity().getBaseContext(), "if block: tag mcq", Toast
                         .LENGTH_SHORT)
                         .show();
 
@@ -243,7 +240,7 @@ public class FragmentDrawQuestion extends Fragment {
             }
 
             else {
-                Toast.makeText(getActivity().getBaseContext(), "else block: draw", Toast
+                Toast.makeText(getActivity().getBaseContext(), "else block: explain_text", Toast
                         .LENGTH_SHORT)
                         .show();
                 //UPDATING NODES
@@ -252,7 +249,7 @@ public class FragmentDrawQuestion extends Fragment {
                     Node node = list.item(i);
 
                     if ("tag".equals(node.getNodeName())) {
-                        node.setTextContent("draw");
+                        node.setTextContent("explain_text");
                     }
 
                     // get the text element, and update the value
@@ -264,16 +261,16 @@ public class FragmentDrawQuestion extends Fragment {
                 }
             }
 
-                // write the content into xml file
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filename));
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filename));
 
-                transformer.transform(source, result);
+            transformer.transform(source, result);
 
-                Toast.makeText(getActivity().getBaseContext(), "Added to question paper", Toast.LENGTH_SHORT)
-                        .show();
+            Toast.makeText(getActivity().getBaseContext(), "Added to question paper", Toast.LENGTH_SHORT)
+                    .show();
 
 
         } catch (Exception e) {
