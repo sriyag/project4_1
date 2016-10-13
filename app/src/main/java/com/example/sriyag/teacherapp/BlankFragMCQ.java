@@ -35,7 +35,7 @@ public class BlankFragMCQ extends Fragment {
 
     EditText etMCQQs, etOpt1, etOpt2, etOpt3, etOpt4;
     Button btnSaveQuestion;
-    String question, optiona, optionb, optionc, optiond;
+    String question, optiona, optionb, optionc, optiond, qpfilename;
     RelativeLayout rlfragmcq;
 
     TextView tvSaveStatus;
@@ -52,6 +52,8 @@ public class BlankFragMCQ extends Fragment {
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Unsaved");
+
+        //IF QUESTION PAPER FILE EXISTS, LOAD ALL DATA IN ALL TEXT FIELDS ON CREATE
 
 
         //initializing all views:

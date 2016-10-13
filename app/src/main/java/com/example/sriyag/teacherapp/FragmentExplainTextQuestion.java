@@ -35,7 +35,7 @@ public class FragmentExplainTextQuestion extends Fragment {
 
     EditText etExplainQs;
     Button btnSaveQuestion_Explain;
-    String question;
+    String question, qpfilename;
     RelativeLayout rlfragmcq;
     TextView tvSaveStatus;
 
@@ -47,8 +47,9 @@ public class FragmentExplainTextQuestion extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_explain_question, container, false);
 
-        String explainQs = getArguments().getString("explainQuestion") ;
-        String qsNum = getArguments().getString("questionnumber") ;
+        String explainQs = getArguments().getString("explainQuestion");
+        String qsNum = getArguments().getString("questionnumber");
+        qpfilename = getArguments().getString("qpfilename");
 
         /*tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Unsaved");*/
@@ -59,38 +60,83 @@ public class FragmentExplainTextQuestion extends Fragment {
         btnSaveQuestion_Explain = (Button) view.findViewById(R.id.btnSaveQuestion_Explain);
         rlfragmcq = (RelativeLayout) view.findViewById(R.id.rlfragmcq);
 
-        btnSaveQuestion_Explain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //document builder factory: save entire question in different tags in xml file
-                //first retrieve all the text content: question and options
-                question = etExplainQs.getText().toString();
+        String filename = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+        File file2 = new File(filename);
+        if (file2.exists()) {
+            //load via DOM parser
+
+            Node current_question = null;
+            Node current_item = null;
+            NodeList current_children_childnodes;
+            String filepath = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+            File file = new File(filepath);
+            DocumentBuilder dbuilder = null;
+            DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
+            int j = 0;
+            try {
+                dbuilder = dbfactory.newDocumentBuilder();
+                Document document = dbuilder.parse(file);
+                Element element = document.getDocumentElement();
+                NodeList questions_list = document.getElementsByTagName("question");  //elements with tag question
+
+
+                current_question = questions_list.item(3); //load question acc2 qsNum -
+                // add attribute!!
+
+
+                current_children_childnodes = current_question.getChildNodes();
+                for (j = 0; j < current_children_childnodes.getLength(); j++) {
+                    current_item = current_children_childnodes.item(j);
+
+                    if (current_item.getNodeName().equalsIgnoreCase("text")) {
+                        question = current_item.getTextContent().toString();
+                        etExplainQs.setText(question);
+                    }
+
+
+                }
+
+
+            } catch (Exception exc) {
+                Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
+                        (), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+            btnSaveQuestion_Explain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //document builder factory: save entire question in different tags in xml file
+                    //first retrieve all the text content: question and options
+                    question = etExplainQs.getText().toString();
 //                tvSaveStatus.setText("Saved");
 
-                //should be name of questionpaper: course_exam_questionpaper.xml
-                String filepath = Environment.getExternalStorageDirectory() +
-                        "/datastorage_t1_questionpaper" + ".xml";
-                File file = new File(filepath);
+                    //should be name of questionpaper: course_exam_questionpaper.xml
+                    String filepath = Environment.getExternalStorageDirectory() +
+                            "/datastorage_t1_questionpaper" + ".xml";
+                    File file = new File(filepath);
 
-                if (file.exists()) {
-                    try {
-                       modifyXMLFile("explain_text", question);
+                    if (file.exists()) {
+                        try {
+                            modifyXMLFile("explain_text", question);
 
 
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        insertIntoXMLFile("explain_text", question);
                     }
-                }
-                else {
-                    insertIntoXMLFile("explain_text", question);
-                }
 
-            }
-        });
+                }
+            });
 
-        return view;
-    }
+            return view;
+        }
+
 
     public void insertIntoXMLFile(String tag,  String text)
     {

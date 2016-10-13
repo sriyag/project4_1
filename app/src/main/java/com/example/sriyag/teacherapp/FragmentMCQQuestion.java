@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ public class FragmentMCQQuestion extends Fragment {
 
     EditText etMCQQs, etOpt1, etOpt2, etOpt3, etOpt4;
     Button btnAddOption, btnSaveQuestion;
-    String question, optiona, optionb, optionc, optiond;
+    String question, optiona, optionb, optionc, optiond, qpfilename;
     RelativeLayout rlfragmcq;
 
     TextView tvSaveStatus;
@@ -50,15 +52,34 @@ public class FragmentMCQQuestion extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_mcq_question, container, false);
 
-        String a = getArguments().getString("a") ;
+        String a = getArguments().getString("a") ; //mcqQuestion
         String b = getArguments().getString("b") ;
         String c = getArguments().getString("c") ;
         String d = getArguments().getString("d") ;
         String e = getArguments().getString("e") ;
         String qsNum = getArguments().getString("questionnumber") ;
+        qpfilename = getArguments().getString("qpfilename");
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
-        tvSaveStatus.setText("Unsaved");
+        tvSaveStatus.setText("Saved");
+
+        /*EditText text = (EditText) findViewById(R.id.YOUR_ID);
+        text.addTextChangedListener(textWatcher);
+
+
+        private TextWatcher textWatcher = new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+
+            }
+        }*/
 
 
         //initializing all views:
@@ -67,9 +88,158 @@ public class FragmentMCQQuestion extends Fragment {
         etOpt2 = (EditText) view.findViewById(R.id.etOption2);
         etOpt3 = (EditText) view.findViewById(R.id.etOption3);
         etOpt4 = (EditText) view.findViewById(R.id.etOption4);
+
+        etMCQQs.addTextChangedListener(textWatcher);
+
+
         //btnAddOption = (Button) view.findViewById(R.id.btnAddOption);
         btnSaveQuestion = (Button) view.findViewById(R.id.btnSaveQuestion);
         rlfragmcq = (RelativeLayout) view.findViewById(R.id.rlfragmcq);
+
+
+        String filename = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+        File file2 = new File(filename);
+        if (file2.exists()) {
+            //load via DOM parser
+
+            Node current_question = null;
+            Node current_item = null;
+            NodeList current_children_childnodes;
+            String filepath = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+            File file = new File(filepath);
+            DocumentBuilder dbuilder = null;
+            DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
+            int j = 0;
+            try {
+                dbuilder = dbfactory.newDocumentBuilder();
+                Document document = dbuilder.parse(file);
+                Element element = document.getDocumentElement();
+                NodeList questions_list = document.getElementsByTagName("question");  //elements with tag question
+
+
+                        current_question = questions_list.item(0); //load question acc2 qsNum -
+                        // add attribute!!
+
+
+                        current_children_childnodes = current_question.getChildNodes();
+                        for (j = 0; j < current_children_childnodes.getLength(); j++) {
+                            current_item = current_children_childnodes.item(j);
+
+                            if (current_item.getNodeName().equalsIgnoreCase("text")) {
+                                question = current_item.getTextContent().toString();
+                                etMCQQs.setText(question);
+                            }
+                            else if (current_item.getNodeName().equalsIgnoreCase("optiona")) {
+                                optiona = current_item.getTextContent().toString();
+                                etOpt1.setText(optiona);
+                            }
+                            else if (current_item.getNodeName().equalsIgnoreCase("optionb")) {
+                                optionb = current_item.getTextContent().toString();
+                                etOpt2.setText(optionb);
+                            }
+                            else if (current_item.getNodeName().equalsIgnoreCase("optionc")) {
+                                optionc = current_item.getTextContent().toString();
+                                etOpt3.setText(optionc);
+                            }
+                            else if (current_item.getNodeName().equalsIgnoreCase("optiond")) {
+                                optiond = current_item.getTextContent().toString();
+                                etOpt4.setText(optiond);
+                            }
+
+                        }
+
+
+            } catch (Exception exc) {
+                Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
+                        (), Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            /*try {
+                DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+                Document doc = docBuilder.parse(new File(filename));
+
+
+                // Get the root element
+                Node root = doc.getFirstChild(); //question
+
+                //PARSE XML CONTENT FROM THE FILE AND DISPLAY IT WITHIN THE APP VIEWS,
+                // NOT THE OTHER WAY ROUND!! - FIRST WRITE CODE FOR THIS PARSING
+
+                // update tag attribute
+            *//*NamedNodeMap attr = text.getAttributes();
+            Node nodeAttr = attr.getNamedItem("id");
+            nodeAttr.setTextContent("2");*//*
+
+                // append a new node to staff
+           *//* Element age = doc.createElement("age");
+            age.appendChild(doc.createTextNode("28"));
+            staff.appendChild(age);*//*
+
+                // loop the child node
+                NodeList list = root.getChildNodes();
+
+                //UPDATING NODES
+                for (int i = 0; i < list.getLength(); i++) {
+
+                    Node node = list.item(i);
+
+                    if ("tag".equals(node.getNodeName())) {
+                        node.setTextContent("mcq");
+                    }
+
+                    // get the text element, and update the value
+                    if ("text".equals(node.getNodeName())) {
+                        node.setTextContent(a);
+                    }
+
+                    if ("optiona".equals(node.getNodeName())) {
+                        node.setTextContent(b);
+                    }
+
+                    if ("optionb".equals(node.getNodeName())) {
+                        node.setTextContent(optionb);
+                    }
+
+                    if ("optionc".equals(node.getNodeName())) {
+                        node.setTextContent(optionc);
+                    }
+
+
+                    if ("optiond".equals(node.getNodeName())) {
+                        node.setTextContent(optiond);
+                    }
+
+                    //remove firstname
+                *//*if ("firstname".equals(node.getNodeName())) {
+                    staff.removeChild(node);
+                }*//*
+
+                }
+                // write the content into xml file
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(filename));
+
+                transformer.transform(source, result);
+
+                Toast.makeText(getActivity().getBaseContext(), "Added to question paper", Toast.LENGTH_SHORT)
+                        .show();
+
+            } catch (Exception e1) {
+                Toast.makeText(getActivity().getBaseContext(), "catch block modifyXML: " + e1
+                                .getMessage(),
+                        Toast.LENGTH_LONG).show();
+
+            }*/
+
+
+
+        }
+
 
         /*btnAddOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,7 +406,7 @@ public class FragmentMCQQuestion extends Fragment {
         {
             e.printStackTrace();
         }
-    }
+    } //end of insert into xml method
 
 
     //Use this method when question paper file already exists
@@ -332,5 +502,21 @@ public class FragmentMCQQuestion extends Fragment {
 
         }
 
-    }
+    } //end of modify xml file
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+
+            tvSaveStatus.setText("Unsaved");
+
+        }
+    };
 }

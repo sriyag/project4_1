@@ -66,6 +66,8 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
     int numberOfLabels;
     int questionNumberSelected = 1;
 
+    int global_position = 0;
+
     String subject, test, questionPaperFileName, tagOfQuestion;
     String mcqQuestion, optionA, optionB, optionC, optionD;
     String explainQuestion, drawQuestion, labelQuestion;
@@ -105,7 +107,30 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
         questionTag.setOnItemSelectedListener(this);
 
 
-//        questionPaperFileName = subject.concat("_").concat(test).concat
+        /*File file = new File(Environment.getExternalStorageDirectory() + "/");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                questionPaperFileName = file.getPath() + subject.concat("_").concat(test).concat
+                        ("_questionpaper");
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "File error in if: " + e.getMessage(), Toast
+                        .LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
+        else {
+            try {
+                questionPaperFileName = Environment.getExternalStorageDirectory() + "/" + subject.concat("_").concat(test).concat
+                        ("_questionpaper");
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "File error in else: " + e.getMessage(),
+                        Toast
+                        .LENGTH_SHORT).show();
+            }
+        }*/ //APP CRASH - FIX!!
+
         questionPaperFileName="datastorage_t1_questionpaper";
         numberOfQuestions = findNumberOfQuestions(questionPaperFileName);   //to get number
         // of questions
@@ -169,6 +194,14 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
             Element element = document.getDocumentElement();
             NodeList questions_list = document.getElementsByTagName("question");  //elements with tag question
             numberOfQuestions = questions_list.getLength();   //number of questions
+
+            Element qs = null;
+
+            for (int x=0; x<questions_list.getLength(); x++) {
+                qs = (Element) questions_list.item(x);
+                qs.setAttribute("id", String.valueOf(x+1)); //sets id=1 to location
+            }
+
             for (i = 0; i < questions_list.getLength(); i++) {
                 if (i == (questionNumberSelected - 1)) {
                     current_question = questions_list.item(i);
@@ -223,6 +256,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                 bundle.putString("d", optionC);
                 bundle.putString("e", optionD);
                 bundle.putString("questionnumber",questionNumberSelected+"");
+                bundle.putString("qpfilename", questionPaperFileName);
 
                 if (fragmentManager.findFragmentByTag("" + questionNumberSelected) == null) {
                     fragment_mcq_question = new FragmentMCQQuestion();
@@ -256,6 +290,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                 Bundle bundleForExplainText = new Bundle();
                 bundleForExplainText.putString("explainQuestion", explainQuestion);
                 bundleForExplainText.putString("questionnumber",questionNumberSelected+"");
+                bundleForExplainText.putString("qpfilename", questionPaperFileName);
 
                 if (fragmentManager.findFragmentByTag("" + questionNumberSelected) == null) {
                     frag_explain = new FragmentExplainTextQuestion();
@@ -289,6 +324,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                 Bundle bundleForDraw = new Bundle() ;
                 bundleForDraw.putString("drawQuestion", drawQuestion);
                 bundleForDraw.putString("questionnumber",questionNumberSelected+"");
+                bundleForDraw.putString("qpfilename", questionPaperFileName);
 
                 if (fragmentManager.findFragmentByTag("" + questionNumberSelected) == null) {
                     frag_draw = new FragmentDrawQuestion();
@@ -330,6 +366,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                 bundleForLabel.putString("labelQuestion", labelQuestion);
                 bundleForLabel.putInt("number_of_labels", numberOfLabels);
                 bundleForLabel.putString("questionnumber",questionNumberSelected+"");
+                bundleForLabel.putString("qpfilename", questionPaperFileName);
 
                 if (fragmentManager.findFragmentByTag("" + questionNumberSelected) == null) {
                     fragment_label_question = new FragmentLabelQuestion();
@@ -355,10 +392,12 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
+        global_position = position;
+
         //ACTION TO BE PERFORMED WHEN LIST VIEW ITEM IS CLICKED: QUESTION NUMBER
         questionNumberList.setSelector(R.drawable.selected_item_color);
 
-        if (questionNumberSelected == 1) { //if position is 0
+        if (questionNumberSelected == 1 && position == 0) { //if position is 0
             questionNumberSelected = position + 1;
             displayQuestion(questionNumberSelected); //spinner tag changed in this method
             qsNum.setText("Q" + questionNumberSelected);
@@ -447,10 +486,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
 //                                    questionNumberList.getItemAtPosition(questionNumberSelected-1);
 
                                     questionNumberSelected = questionNumberSelected + 1;
-                                    questionNumberList.setSelected(true);
-
-                                    //questionNumberList.setSelector(R.drawable
-                                    // .selected_item_color);
+                                    questionNumberList.setSelector(R.drawable.selected_item_color);
 
                                     displayQuestion(questionNumberSelected); //spinner tag changed in this method
                                     qsNum.setText("Q" + questionNumberSelected);
@@ -460,6 +496,14 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                                         nextQuestion.setVisibility(View.INVISIBLE);
                                     } else {
                                         nextQuestion.setVisibility(View.VISIBLE);
+                                    }
+
+                                    //do not show prev for first question
+                                    if (questionNumberSelected == 1) {
+                                        prevQuestion.setVisibility(View.INVISIBLE);
+                                    }
+                                    else {
+                                        prevQuestion.setVisibility(View.VISIBLE);
                                     }
 
                                 }
@@ -484,6 +528,14 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                         nextQuestion.setVisibility(View.VISIBLE);
                     }
 
+                    //do not show prev for first question
+                    if (questionNumberSelected == 1) {
+                        prevQuestion.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        prevQuestion.setVisibility(View.VISIBLE);
+                    }
+
                 }
 
 
@@ -491,16 +543,74 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
 
             case R.id.prev_question: //TEST THEN MODIFY
 
-                //listView.setSelector(R.drawable.listview_item_selection_effect);
-                //listView.setItemChecked(3, true);
-                questionNumberList.setSelector(R.drawable.selected_item_color);
-                questionNumberList.setItemChecked(questionNumberSelected-1, true);
-
-
+                prevQuestion.setVisibility(View.VISIBLE);
                 nextQuestion.setVisibility(View.VISIBLE);
-                questionNumberSelected = questionNumberSelected - 1;
-                if (questionNumberSelected <= numberOfQuestions && questionNumberSelected >= 2)
-                    displayQuestion(questionNumberSelected);
+
+                if (saveStatus.getText().toString().equals("Unsaved")) {
+                    //alert dialog pop up on choosing new question - only if text view is unsaved
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder
+                            .setTitle("Another question selected")
+                            .setMessage("Have you saved your current question?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Yes button clicked, do something
+//                                    questionNumberList.getItemAtPosition(questionNumberSelected-1);
+
+                                    questionNumberSelected = questionNumberSelected - 1;
+                                    questionNumberList.setSelector(R.drawable.selected_item_color);
+
+                                    displayQuestion(questionNumberSelected); //spinner tag changed in this method
+                                    qsNum.setText("Q" + questionNumberSelected);
+
+                                    //do not show next button for the last question
+                                    if (questionNumberSelected == numberOfQuestions) {
+                                        nextQuestion.setVisibility(View.INVISIBLE);
+                                    } else {
+                                        nextQuestion.setVisibility(View.VISIBLE);
+                                    }
+
+                                    //do not show prev for first question
+                                    if (questionNumberSelected == 1) {
+                                        prevQuestion.setVisibility(View.INVISIBLE);
+                                    }
+                                    else {
+                                        prevQuestion.setVisibility(View.VISIBLE);
+                                    }
+
+                                }
+                            })
+                            .setNegativeButton("No", null)                        //Do nothing on no
+                            .show();
+                } //if closed
+
+                else { //text view shows status: Saved. Freely go to the next question and update
+                    // accordingly
+
+                    questionNumberSelected = questionNumberSelected - 1;
+                    questionNumberList.setSelector(R.drawable.selected_item_color);
+
+                    displayQuestion(questionNumberSelected); //spinner tag changed in this method
+                    qsNum.setText("Q" + questionNumberSelected);
+
+                    //do not show next button for the last question
+                    if (questionNumberSelected == numberOfQuestions) {
+                        nextQuestion.setVisibility(View.INVISIBLE);
+                    } else {
+                        nextQuestion.setVisibility(View.VISIBLE);
+                    }
+
+                    //do not show prev for first question
+                    if (questionNumberSelected == 1) {
+                        prevQuestion.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        prevQuestion.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
                 break;
 
             case R.id.btnAddQs:

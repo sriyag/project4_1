@@ -66,7 +66,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
     RelativeLayout rl; //root
 
-    String labelQs, qsNum, coords;
+    String labelQs, qsNum, coords, qpfilename, question;
     int numberOfLabels;
     EditText etLabelQuestion;
     ImageView ivLabelImage;
@@ -84,6 +84,8 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
         labelQs = getArguments().getString("labelQuestion");
         numberOfLabels = getArguments().getInt("number_of_labels");
         qsNum = getArguments().getString("questionnumber");
+
+        qpfilename = getArguments().getString("qpfilename");
 
         rl = (RelativeLayout) view.findViewById(R.id.root);
         scaleGestureDetector = new ScaleGestureDetector(getActivity(), new ScaleListener());
@@ -104,6 +106,50 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
         btnAddLocation = (Button) view.findViewById(R.id.btnLocation);
         btnAddLocation.setOnClickListener(this);
 
+
+        String filename = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+        File file2 = new File(filename);
+        if (file2.exists()) {
+            //load via DOM parser
+
+            Node current_question = null;
+            Node current_item = null;
+            NodeList current_children_childnodes;
+            String filepath = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+            File file = new File(filepath);
+            DocumentBuilder dbuilder = null;
+            DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
+            int j = 0;
+            try {
+                dbuilder = dbfactory.newDocumentBuilder();
+                Document document = dbuilder.parse(file);
+                Element element = document.getDocumentElement();
+                NodeList questions_list = document.getElementsByTagName("question");  //elements with tag question
+
+
+                current_question = questions_list.item(10); //load question acc2 tag and qsNum -
+                // add attribute!!
+
+
+                current_children_childnodes = current_question.getChildNodes();
+                for (j = 0; j < current_children_childnodes.getLength(); j++) {
+                    current_item = current_children_childnodes.item(j);
+
+                    if (current_item.getNodeName().equalsIgnoreCase("text")) {
+                        question = current_item.getTextContent().toString();
+                        etLabelQuestion.setText(question);
+                    }
+
+
+                }
+
+
+            } catch (Exception exc) {
+                Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
+                        (), Toast.LENGTH_SHORT).show();
+            }
+        }
+
         //ivLabelImage.setImageResource(R.drawable.skeleton);
 
         return view;
@@ -119,7 +165,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
                 //creation of dynamic edit text boxes
                 tvLabel = new TextView(getActivity());
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(300, 100);
-                lp.setMargins(50, 200, 200, 50);
+                lp.setMargins(50, 200, 200, 50); //l, t, r, b
 
                 tvLabel.setText(String.valueOf(count));
                 tvLabel.setLayoutParams(lp);

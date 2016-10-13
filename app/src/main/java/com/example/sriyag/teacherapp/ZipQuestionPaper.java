@@ -61,9 +61,13 @@ public class ZipQuestionPaper extends Activity {
                     //creating a encrypted-zip of the xml file and going to the email-screen.
                     AddFilesWithAESEncryption addFilesWithAESEncryption = new AddFilesWithAESEncryption();
 
-                    Toast.makeText(getApplicationContext(), "Question paper zipped.\nTo implement " +
-                                    "pushing to server functionality",
+                    Toast.makeText(getApplicationContext(), "Question paper zipped.",
                             Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(ZipQuestionPaper.this, ServerPush.class);
+                    i.putExtra("subject", subject);
+                    i.putExtra("exam", exam);
+                    startActivity(i);
                 }
             }
         });

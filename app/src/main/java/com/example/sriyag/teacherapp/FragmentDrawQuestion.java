@@ -35,7 +35,7 @@ public class FragmentDrawQuestion extends Fragment {
 
     EditText etDrawQs;
     Button btnSaveQuestion_Draw;
-    String question;
+    String question, qpfilename;
     RelativeLayout rlfragmcq;
     TextView tvSaveStatus;
 
@@ -49,6 +49,7 @@ public class FragmentDrawQuestion extends Fragment {
 
         String explainQs = getArguments().getString("drawQuestion") ;
         String qsNum = getArguments().getString("questionnumber") ;
+        qpfilename = getArguments().getString("qpfilename");
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Unsaved");
@@ -58,6 +59,51 @@ public class FragmentDrawQuestion extends Fragment {
         etDrawQs = (EditText) view.findViewById(R.id.etDrawQuestion);
         btnSaveQuestion_Draw = (Button) view.findViewById(R.id.btnSaveQuestion_Draw);
         rlfragmcq = (RelativeLayout) view.findViewById(R.id.rlfragmcq);
+
+
+        String filename = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+        File file2 = new File(filename);
+        if (file2.exists()) {
+            //load via DOM parser
+
+            Node current_question = null;
+            Node current_item = null;
+            NodeList current_children_childnodes;
+            String filepath = Environment.getExternalStorageDirectory() + "/" + qpfilename;
+            File file = new File(filepath);
+            DocumentBuilder dbuilder = null;
+            DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
+            int j = 0;
+            try {
+                dbuilder = dbfactory.newDocumentBuilder();
+                Document document = dbuilder.parse(file);
+                Element element = document.getDocumentElement();
+                NodeList questions_list = document.getElementsByTagName("question");  //elements with tag question
+
+
+                current_question = questions_list.item(1); //load question acc2 qsNum -
+                // add attribute!!
+
+
+                current_children_childnodes = current_question.getChildNodes();
+                for (j = 0; j < current_children_childnodes.getLength(); j++) {
+                    current_item = current_children_childnodes.item(j);
+
+                    if (current_item.getNodeName().equalsIgnoreCase("text")) {
+                        question = current_item.getTextContent().toString();
+                        etDrawQs.setText(question);
+                    }
+
+
+                }
+
+
+            } catch (Exception exc) {
+                Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
+                        (), Toast.LENGTH_SHORT).show();
+            }
+        }
+
 
         btnSaveQuestion_Draw.setOnClickListener(new View.OnClickListener() {
             @Override

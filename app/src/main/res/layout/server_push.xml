@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Push File To Server"
+        android:id="@+id/btnPushToServer"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zipped File Name"
+        android:id="@+id/tvZippedFile"
+        android:layout_below="@+id/btnPushToServer"
+        android:layout_alignLeft="@+id/btnPushToServer"
+        android:layout_alignRight="@+id/btnPushToServer"
+        android:layout_alignEnd="@+id/btnPushToServer"
+        android:layout_alignStart="@+id/btnPushToServer"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Wifi Status"
+        android:id="@+id/tvWifiStatus"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/btnPushToServer"
+        android:layout_toStartOf="@+id/btnPushToServer"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IP Address"
+        android:id="@+id/tvIP"
+        android:textSize="20sp"
+        android:layout_below="@+id/tvWifiStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/tvWifiStatus"
+        android:layout_alignLeft="@+id/tvWifiStatus"
+        android:layout_alignRight="@+id/tvWifiStatus"
+        android:layout_alignEnd="@+id/tvWifiStatus"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+</RelativeLayout>
