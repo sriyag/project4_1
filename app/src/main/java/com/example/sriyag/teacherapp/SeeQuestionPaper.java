@@ -393,6 +393,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
         global_position = position;
+        saveStatus.setText("Saved");
 
         //ACTION TO BE PERFORMED WHEN LIST VIEW ITEM IS CLICKED: QUESTION NUMBER
         questionNumberList.setSelector(R.drawable.selected_item_color);
@@ -401,7 +402,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
             questionNumberSelected = position + 1;
             displayQuestion(questionNumberSelected); //spinner tag changed in this method
             qsNum.setText("Q" + questionNumberSelected);
-            saveStatus.setText("Unsaved");
+            saveStatus.setText("Saved");
             prevQuestion.setVisibility(View.INVISIBLE);
             nextQuestion.setVisibility(View.VISIBLE);
 //            view.setBackgroundColor(Color.GRAY);

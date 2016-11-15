@@ -29,6 +29,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
             String subject = ((TextView)view).getText().toString();
             Intent intent = new Intent(MainActivity.this, SelectQuestionPaper.class);
+//            Intent intent = new Intent(MainActivity.this, ScanBarCode.class);
             intent.putExtra("subject", subject);
             startActivity(intent);
         } catch (Exception e) {

@@ -221,7 +221,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
                 //document builder factory: save entire question in different tags in xml file
                 //first retrieve all the text content: question and options
-                //tvSaveStatus.setText("Saved");
+                tvSaveStatus.setText("Saved");
 
                 try {
                     labelQs = etLabelQuestion.getText().toString();

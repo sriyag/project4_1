@@ -51,8 +51,8 @@ public class FragmentExplainTextQuestion extends Fragment {
         String qsNum = getArguments().getString("questionnumber");
         qpfilename = getArguments().getString("qpfilename");
 
-        /*tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
-        tvSaveStatus.setText("Unsaved");*/
+        tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
+        tvSaveStatus.setText("Saved");
 
 
         //initializing all views:

@@ -63,23 +63,7 @@ public class FragmentMCQQuestion extends Fragment {
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
         tvSaveStatus.setText("Saved");
 
-        /*EditText text = (EditText) findViewById(R.id.YOUR_ID);
-        text.addTextChangedListener(textWatcher);
 
-
-        private TextWatcher textWatcher = new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
-            }
-        }*/
 
 
         //initializing all views:
@@ -88,8 +72,6 @@ public class FragmentMCQQuestion extends Fragment {
         etOpt2 = (EditText) view.findViewById(R.id.etOption2);
         etOpt3 = (EditText) view.findViewById(R.id.etOption3);
         etOpt4 = (EditText) view.findViewById(R.id.etOption4);
-
-        etMCQQs.addTextChangedListener(textWatcher);
 
 
         //btnAddOption = (Button) view.findViewById(R.id.btnAddOption);
@@ -147,6 +129,13 @@ public class FragmentMCQQuestion extends Fragment {
                             }
 
                         }
+
+                etMCQQs.addTextChangedListener(textWatcher);
+                etOpt1.addTextChangedListener(textWatcher);
+                etOpt2.addTextChangedListener(textWatcher);
+                etOpt3.addTextChangedListener(textWatcher);
+                etOpt4.addTextChangedListener(textWatcher);
+
 
 
             } catch (Exception exc) {
@@ -514,9 +503,7 @@ public class FragmentMCQQuestion extends Fragment {
 
         public void onTextChanged(CharSequence s, int start, int before,
                                   int count) {
-
             tvSaveStatus.setText("Unsaved");
-
         }
     };
 }

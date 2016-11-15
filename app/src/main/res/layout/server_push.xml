@@ -27,33 +27,27 @@
         android:layout_marginTop="10dp"
         />
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Wifi Status"
-        android:id="@+id/tvWifiStatus"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/btnPushToServer"
-        android:layout_toStartOf="@+id/btnPushToServer"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IP Address"
-        android:id="@+id/tvIP"
-        android:textSize="20sp"
-        android:layout_below="@+id/tvWifiStatus"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignStart="@+id/tvWifiStatus"
-        android:layout_alignLeft="@+id/tvWifiStatus"
-        android:layout_alignRight="@+id/tvWifiStatus"
-        android:layout_alignEnd="@+id/tvWifiStatus"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:text="Store IP Address"
+        android:layout_alignLeft="@+id/btnPushToServer"
+        android:layout_alignRight="@+id/btnPushToServer"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/btnStoreIP"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btnPushToServer"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etIP"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/btnStoreIP"
+        android:layout_alignLeft="@+id/btnPushToServer"
+        android:layout_alignStart="@+id/btnPushToServer"
+        android:layout_alignRight="@+id/btnPushToServer"
+        android:layout_alignEnd="@+id/btnPushToServer"
+        android:hint="Enter IP Address"/>
 </RelativeLayout>

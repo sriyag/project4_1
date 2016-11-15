@@ -3,6 +3,7 @@ package com.example.sriyag.teacherapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,15 +31,17 @@ import java.util.Enumeration;
 public class ServerPush extends Activity {
 
     TextView messageText;
-    Button uploadButton;
+    EditText etIP;
+    Button uploadButton, btnStoreIp;
     int serverResponseCode = 0;
     ProgressDialog dialog = null;
 
     String upLoadServerUri = null;
 
-    TextView tvWifiStatus, tvIP;
-    String IPaddress, ipAddr;
+    String IPaddress, ipAddr = "";
     Boolean IPValue;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
 
     /**********  File Path *************/
@@ -52,16 +56,55 @@ public class ServerPush extends Activity {
         setContentView(R.layout.server_push);
 
         uploadButton = (Button)findViewById(R.id.btnPushToServer);
+        btnStoreIp = (Button)findViewById(R.id.btnStoreIP);
         messageText  = (TextView)findViewById(R.id.tvZippedFile);
 
-        tvWifiStatus  = (TextView)findViewById(R.id.tvWifiStatus);
-        tvIP  = (TextView)findViewById(R.id.tvIP);
+        etIP  = (EditText) findViewById(R.id.etIP);
 
-        ipAddr = tvIP.getText().toString();
+        sp = getSharedPreferences("mypref", 0);
+        ipAddr = sp.getString("addr", "");
+        etIP.setText(ipAddr);
 
-        detectWifiNetwork();
+//        detectWifiNetwork();
+
+        //THE APP HAS TO GET THE IP ADDRESS OF THE MACHINE WHERE THE
+        //XAMPP SERVER IS SET UP
+        //IN THIS CASE, MAC BOOK PRO RUNNING ON WIFI DLK 80 HAS AN IP ADDRESS ...106
+        //Wi-Fi is connected to dlk80 and has the IP address 192.168.0.106.
+        //DLK 80 ON ANDROID PHONE WILL OBVIOUSLY SHOW A DIFFERENT IP ADDRESS
+        //FOR THE SAME WIFI!!
+        //DLK 80 IS JUST THE ACCESS POINT
+
+        //Hence, get the IP address of the machine hosting the server via Settings
+        //In Java, you can use InetAddress.getLocalHost() to get the Ip Address of
+        //the current Server running the Java app.
+
+        btnStoreIp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+//               startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS)); - settings
+                    /*InetAddress address = InetAddress.getByName("Sriyas-MacBook-Pro.local");
+                    Toast.makeText(getApplicationContext(), address.getHostAddress(), Toast
+                            .LENGTH_LONG).show();*/ //null exception
+//                    String ip =  InetAddress.getLocalHost().getHostAddress(); - null exception
+                    //store in settings and retrieve next time!!!!!!
+                    ipAddr = etIP.getText().toString();
+                    editor = sp.edit();
+                    editor.putString("addr", ipAddr);
+                    editor.commit();
+
+                    Toast.makeText(getApplicationContext(), "ipaddr: "+ ipAddr, Toast.LENGTH_SHORT).show();
+
+                    //Shared Preferences
 
 
+                } catch (Exception e) {
+                    Toast.makeText(ServerPush.this, "get ip error: "+e.getMessage(), Toast
+                            .LENGTH_LONG).show();
+                }
+            }
+        });
 
 
 
@@ -70,6 +113,8 @@ public class ServerPush extends Activity {
 
         /************* Php script path ****************/
 //        upLoadServerUri = "http://172.16.72.23/uploadzip.php";
+//        upLoadServerUri = "http://10.0.2.2/"; - got log exception : null
+//        upLoadServerUri = "http://localhost/"; - got log exception : null
         upLoadServerUri = "http://" + ipAddr + "/uploadzip.php";
 
         uploadButton.setOnClickListener(new OnClickListener() {
@@ -259,7 +304,7 @@ public class ServerPush extends Activity {
 
                 WIFI = true;
                 // connected to wifi
-                tvWifiStatus.setText("WiFi detected");
+                //tvWifiStatus.setText("WiFi detected");
                 Toast.makeText(getApplicationContext(), activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
@@ -269,7 +314,7 @@ public class ServerPush extends Activity {
             }
         } else {
             // not connected to the internet
-            tvWifiStatus.setText("No WiFi detected");
+            //tvWifiStatus.setText("No WiFi detected");
             Toast.makeText(getApplicationContext(), "You are not connected to the Internet!", Toast
                     .LENGTH_SHORT).show();
         }
@@ -278,7 +323,7 @@ public class ServerPush extends Activity {
 
         {
             IPaddress = GetDeviceipWiFiData();
-            tvIP.setText(IPaddress);
+           // tvIP.setText(IPaddress);
 
 
         }
@@ -287,7 +332,7 @@ public class ServerPush extends Activity {
         {
 
             IPaddress = GetDeviceipMobileData();
-            tvIP.setText(IPaddress);
+           // tvIP.setText(IPaddress);
 
         }
 
