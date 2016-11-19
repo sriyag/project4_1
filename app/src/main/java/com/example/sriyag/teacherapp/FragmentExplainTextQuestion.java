@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +41,13 @@ public class FragmentExplainTextQuestion extends Fragment {
     RelativeLayout rlfragmcq;
     TextView tvSaveStatus;
 
+    int count = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        this.setRetainInstance(true);
-
+        count++;
         View view = inflater.inflate(R.layout.fragment_explain_question, container, false);
 
         String explainQs = getArguments().getString("explainQuestion");
@@ -52,7 +55,7 @@ public class FragmentExplainTextQuestion extends Fragment {
         qpfilename = getArguments().getString("qpfilename");
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
-        tvSaveStatus.setText("Saved");
+        tvSaveStatus.setText("No change");
 
 
         //initializing all views:
@@ -96,6 +99,8 @@ public class FragmentExplainTextQuestion extends Fragment {
 
 
                 }
+
+                etExplainQs.addTextChangedListener(textWatcher);
 
 
             } catch (Exception exc) {
@@ -329,5 +334,25 @@ public class FragmentExplainTextQuestion extends Fragment {
 
         }
 
+    } //modify xml closed
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tvSaveStatus.setText("No change");
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            tvSaveStatus.setText("Unsaved");
+        }
+    };
 }

@@ -15,6 +15,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -59,6 +61,8 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
     private int lMgn = 0, tMgn = 0;
 
+    int count_edits = 0;
+
     private ArrayList<String> al = new ArrayList<String>();
 
     private ScaleGestureDetector scaleGestureDetector;
@@ -85,6 +89,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
         numberOfLabels = getArguments().getInt("number_of_labels");
         qsNum = getArguments().getString("questionnumber");
 
+        count_edits++;
         qpfilename = getArguments().getString("qpfilename");
 
         rl = (RelativeLayout) view.findViewById(R.id.root);
@@ -97,7 +102,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
         tvChosenImage = (TextView) view.findViewById(R.id.tvImgFile);
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
-
+        tvSaveStatus.setText("No change");
 
         btnChooseImage = (Button) view.findViewById(R.id.btnChooseImg);
         btnChooseImage.setOnClickListener(this);
@@ -143,6 +148,7 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
                 }
 
+                etLabelQuestion.addTextChangedListener(textWatcher);
 
             } catch (Exception exc) {
                 Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
@@ -664,5 +670,24 @@ public class FragmentLabelQuestion extends Fragment implements View.OnClickListe
 
     } //on context item selected closed
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        tvSaveStatus.setText("No change");
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            tvSaveStatus.setText("Unsaved");
+        }
+    };
 
 }

@@ -270,6 +270,8 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                     fragmentTransaction.replace(R.id.linearLayout, fragment_mcq_question, "" + questionNumberSelected).addToBackStack(null).commit();
                 }
 
+               //saveStatus.setText("Saved");
+
                 break;
 
 
@@ -304,7 +306,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                     fragmentTransaction.replace(R.id.linearLayout, frag_explain, "" + questionNumberSelected).addToBackStack(null).commit();
                 }
 
-
+                //saveStatus.setText("Saved");
 
                 break;
 
@@ -338,6 +340,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                     fragmentTransaction.replace(R.id.linearLayout, frag_draw, "" + questionNumberSelected).addToBackStack(null).commit();
                 }
 
+               // saveStatus.setText("Saved");
 
                 break ;
 
@@ -381,6 +384,8 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
 
                 }
 
+                //saveStatus.setText("Saved");
+
                 break ;
 
 
@@ -393,16 +398,16 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
         global_position = position;
-        saveStatus.setText("Saved");
+        //saveStatus.setText("Saved");
 
         //ACTION TO BE PERFORMED WHEN LIST VIEW ITEM IS CLICKED: QUESTION NUMBER
-        questionNumberList.setSelector(R.drawable.selected_item_color);
+//        questionNumberList.setSelector(R.drawable.selected_item_color);
 
         if (questionNumberSelected == 1 && position == 0) { //if position is 0
             questionNumberSelected = position + 1;
             displayQuestion(questionNumberSelected); //spinner tag changed in this method
             qsNum.setText("Q" + questionNumberSelected);
-            saveStatus.setText("Saved");
+           // saveStatus.setText("Saved");
             prevQuestion.setVisibility(View.INVISIBLE);
             nextQuestion.setVisibility(View.VISIBLE);
 //            view.setBackgroundColor(Color.GRAY);
@@ -415,7 +420,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
             prevQuestion.setVisibility(View.VISIBLE);
             //saveStatus.setText("Unsaved");
 
-            if (saveStatus.getText().toString().equals("Unsaved")) {
+            if (saveStatus.getText().toString().trim().equals("Unsaved")) {
                 //alert dialog pop up on choosing new question - only if text view is unsaved
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder
@@ -487,7 +492,8 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
 //                                    questionNumberList.getItemAtPosition(questionNumberSelected-1);
 
                                     questionNumberSelected = questionNumberSelected + 1;
-                                    questionNumberList.setSelector(R.drawable.selected_item_color);
+//                                    questionNumberList.setSelector(R.drawable.selected_item_color);
+
 
                                     displayQuestion(questionNumberSelected); //spinner tag changed in this method
                                     qsNum.setText("Q" + questionNumberSelected);
@@ -560,7 +566,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
 //                                    questionNumberList.getItemAtPosition(questionNumberSelected-1);
 
                                     questionNumberSelected = questionNumberSelected - 1;
-                                    questionNumberList.setSelector(R.drawable.selected_item_color);
+//                                    questionNumberList.setSelector(R.drawable.selected_item_color);
 
                                     displayQuestion(questionNumberSelected); //spinner tag changed in this method
                                     qsNum.setText("Q" + questionNumberSelected);
@@ -590,7 +596,7 @@ public class SeeQuestionPaper extends Activity implements AdapterView.OnItemClic
                     // accordingly
 
                     questionNumberSelected = questionNumberSelected - 1;
-                    questionNumberList.setSelector(R.drawable.selected_item_color);
+//                    questionNumberList.setSelector(R.drawable.selected_item_color);
 
                     displayQuestion(questionNumberSelected); //spinner tag changed in this method
                     qsNum.setText("Q" + questionNumberSelected);

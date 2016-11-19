@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,20 +41,21 @@ public class FragmentDrawQuestion extends Fragment {
     RelativeLayout rlfragmcq;
     TextView tvSaveStatus;
 
+    int count = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        this.setRetainInstance(true);
-
         View view = inflater.inflate(R.layout.fragment_draw_question, container, false);
 
+        count++;
         String explainQs = getArguments().getString("drawQuestion") ;
         String qsNum = getArguments().getString("questionnumber") ;
         qpfilename = getArguments().getString("qpfilename");
 
         tvSaveStatus = (TextView) getActivity().findViewById(R.id.tvSaveStatus);
-        tvSaveStatus.setText("Unsaved");
+        tvSaveStatus.setText("No change");
 
 
         //initializing all views:
@@ -97,6 +100,7 @@ public class FragmentDrawQuestion extends Fragment {
 
                 }
 
+                etDrawQs.addTextChangedListener(textWatcher);
 
             } catch (Exception exc) {
                 Toast.makeText(getActivity(), "error in parsing mcq contents: " + exc.getMessage
@@ -331,4 +335,24 @@ public class FragmentDrawQuestion extends Fragment {
         }
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tvSaveStatus.setText("No change");
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            tvSaveStatus.setText("Unsaved");
+        }
+    };
 }
